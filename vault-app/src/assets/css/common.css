@@ -1,0 +1,247 @@
+.parent-container {
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+    min-height: 100vh;
+    margin-top: 50px;
+    font-family: monospace;
+    text-align: center;
+    align-items: center;
+}
+
+.parent-widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    margin-left: 55px;
+}
+
+.box {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    font-family: monospace;
+    height:fit-content;
+    min-height: 100vh;
+}
+
+
+.widget-container {
+    flex-basis: calc(50% - 10px);
+    min-height: 150px;
+    /* Adjusted to a smaller height */
+    margin-top:0px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #2e3748;
+    /* Soft Border */
+    background-color: #2e3748;
+    /* Soft Input Background */
+    color: #b5b5b5;
+    /* Text Color */
+    font-size: 14px;
+    transition: all 0.3s ease;
+    /* Smooth Transition */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(33, 150, 243, 0.5);
+    /* Focused State */
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-buttons button {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    outline: none;
+}
+.style-button {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    outline: none;
+}
+
+.style-button:hover{
+    background-color: #03e9f4;
+    color: #000;
+    /* If you want the text color to change when hovering, otherwise keep it as #fff */
+    border-color: #03e9f4;
+
+}
+.nav-buttons button:hover {
+    background-color: #03e9f4;
+    color: #000;
+    /* If you want the text color to change when hovering, otherwise keep it as #fff */
+    border-color: #03e9f4;
+}
+
+.create-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    font-family: monospace;
+}
+
+p {
+    font-family: monospace;
+    color: whitesmoke;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.common-button {
+    background-color: rgba(0, 0, 0, 0);
+    color: #03e9f4;
+    border: none;
+    font-family: monospace;
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px
+}
+
+.title{
+    font-family: monospace;
+    color: whitesmoke;
+    font-size: 26px;
+    padding: 5px;
+}
+
+.main-title{
+    font-family: monospace;
+    color: whitesmoke;
+    font-size: 26px;
+    padding: 10px;
+    margin-left: 50px;
+}
+
+.card {
+    background: #191c29;
+    width: auto;
+    max-width: 500px;
+    width: 100%;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    border-radius: 6px;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin:auto;
+    font-size: 1.5em;
+    color: whitesmoke;
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    color: rgb(88 199 250 / 100%);
+    transition: color 1s;
+  }
+  
+  
+  .card::before {
+    content: "";
+    width: 104%;
+    height: 102%;
+    border-radius: 8px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -2%;
+    animation: spin 2.5s linear infinite;
+  }
+  
+  .card::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity .5s;
+    animation: spin 2.5s linear infinite;
+  }
+  
+
+  .card::after {
+      position: absolute;
+      content: "";
+      top: calc(var(--card-height) / 6);
+      left: 0;
+      right: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      transform: scale(0.8);
+      filter: blur(calc(var(--card-height) / 6));
+      background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+      opacity: 1;
+      transition: opacity .5s;
+      animation: spin 2.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+  
+    100% {
+      --rotate: 360deg;
+    }
+  }
+
+  
+  
