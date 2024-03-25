@@ -1,18 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
 .parent-container {
     background: rgba(0, 0, 0, .5);
     padding: 40px;
     min-height: 100vh;
     margin-top: 50px;
-    font-family: monospace;
+    font-family: kanit;
     text-align: center;
     align-items: center;
 }
-
+.style-button:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
+}
 .parent-widget {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: monospace;
+    font-family: kanit;
     margin-left: 55px;
 }
 
@@ -24,7 +34,7 @@
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
-    font-family: monospace;
+    font-family: kanit;
     height:fit-content;
     min-height: 100vh;
 }
@@ -116,11 +126,11 @@ textarea:focus {
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
-    font-family: monospace;
+    font-family: kanit;
 }
 
 p {
-    font-family: monospace;
+    font-family: kanit;
     color: whitesmoke;
     font-size: 16px;
     padding: 5px;
@@ -130,7 +140,7 @@ p {
     background-color: rgba(0, 0, 0, 0);
     color: #03e9f4;
     border: none;
-    font-family: monospace;
+    font-family: kanit;
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -144,18 +154,18 @@ p {
 }
 
 .title{
-    font-family: monospace;
+    font-family: kanit;
     color: whitesmoke;
     font-size: 26px;
     padding: 5px;
 }
 
 .main-title{
-    font-family: monospace;
+    font-family: kanit;
     color: whitesmoke;
     font-size: 26px;
     padding: 10px;
-    margin-left: 50px;
+    margin-left: 180px;
 }
 
 .card {
@@ -166,7 +176,7 @@ p {
     flex-direction: column;
     padding: 20px;
     position: relative;
-    border-radius: 6px;
+    border-radius: 1px;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
@@ -242,6 +252,12 @@ p {
       --rotate: 360deg;
     }
   }
+
+  @property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
 
   
   

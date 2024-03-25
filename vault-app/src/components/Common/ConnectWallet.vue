@@ -125,7 +125,7 @@ export default {
     letter-spacing: 4px
 }
 
-.connect-box a:hover {
+.connect-box button:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;

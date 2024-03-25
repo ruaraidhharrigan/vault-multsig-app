@@ -2,9 +2,11 @@
     <div class="parent-container">
         <div class="box">
             <SideBar />
-            <h2 class="main-title">Transactions</h2>
-            <div class="widget-container">
-                <TransactionsWidget />
+            <div class="main-content">
+                <h2 class="main-title">Transactions</h2>
+                <div class="widget-container">
+                    <TransactionWidget />
+                </div>
             </div>
         </div>
     </div>
@@ -12,17 +14,18 @@
 
 <script>
 import SideBar from '../Common/SideBar.vue';
-import TransactionsWidget from '../Common/TransactionsWidget.vue';
+import TransactionWidget from './TransactionWidget.vue';
+import { SigningService } from '@/services/SigningService';
+
 export default {
     components: {
-        TransactionsWidget,
-        SideBar
+        SideBar,
+        TransactionWidget
     },
 }
 </script>
 
 <style scoped>
-
 .box {
     max-width: 1200px;
     margin: auto;
@@ -32,6 +35,7 @@ export default {
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
 }
+
 .widget-container {
     text-align: center;
     flex-basis: calc(50% - 10px);

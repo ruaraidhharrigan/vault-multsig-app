@@ -5,8 +5,11 @@ import router from './router/router';
 import hashConnectService from './services/hashConnectService';
 import VueApexCharts from 'vue-apexcharts'
 import '@/assets/css/common.css';
+import { VueSelect } from "vue-select";
+
  /* eslint-disable */
 const app = createApp(App);
+app.component('v-select', VueSelect);
 app.component('apexchart', VueApexCharts);
 
 // Provide the service before mounting the app

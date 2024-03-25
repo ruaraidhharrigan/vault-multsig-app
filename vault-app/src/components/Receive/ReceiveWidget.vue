@@ -1,6 +1,5 @@
 <template>
     <div class="parent-widget">
-        <div class="card">
             <div v-for="address in addresses" :key="address.id" class="address-row">
                 <div class="address-info">
                     <h4 class="address-label">{{ address.label }}</h4>
@@ -10,18 +9,19 @@
                     <img src="../../assets/svg/copy.svg" class="copy-icon" />
                 </button>
             </div>
-        </div>
     </div>
 </template>
   
 <script>
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 export default {
+
     data() {
+        const route = useRoute();
         return {
             addresses: [
-                { id: 1, value: '0x1234567890abcdef', label: 'Address' },
-                { id: 2, value: '0xabcdef1234567890', label: 'Address with Checksum' },
-                { id: 3, value: '0x7890abcdef123456', label: 'EVM Address' }
+                { id: 1, value: ref(route.params.accountId), label: 'Address' },
             ]
         };
     },
@@ -35,8 +35,22 @@ export default {
 </script>
   
 <style scoped>
+.parent-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 20px;
+  margin-left: 300px;
+  width: 55%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .address-row {
     text-align: left;
+    background-color: #f6f8fa;
     display: flex;
     align-items: center;
     justify-content: space-between;

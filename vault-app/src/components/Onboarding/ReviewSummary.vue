@@ -41,7 +41,9 @@ import { useRouter } from 'vue-router';
 import router from '@/router/router';
 
 export default {
+    props: ['accountId'],
     setup() {
+        
         const store = useStore();
         const router = useRouter(); // Added router instance
 
@@ -82,7 +84,7 @@ export default {
         },
         async confirmAndProceed() {
             this.removeReviewForm();
-            const response = await fetch('http://localhost:8082/api/multisignature-accounts', {
+            const response = await fetch('http://localhost:8081/api/multisignature-accounts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

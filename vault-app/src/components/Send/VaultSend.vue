@@ -2,9 +2,11 @@
     <div class="parent-container">
         <div class="box">
             <SideBar />
-            <h1 class="main-title">Send Assets</h1>
-            <div class="widget-container">
-                <SendWidget />
+            <div class="main-content">
+                <h1 class="main-title2">Send Assets</h1>
+                <div class="widget-container">
+                    <SendWidget />
+                </div>
             </div>
         </div>
     </div>
@@ -19,6 +21,16 @@ export default {
     components: {
         SendWidget,
         SideBar
-    },
+    }
 }
 </script>
+
+<style scoped>
+.main-title2{
+    font-family: kanit;
+    color: whitesmoke;
+    font-size: 26px;
+    padding: 10px;
+    margin-left: 125px;
+}
+</style>

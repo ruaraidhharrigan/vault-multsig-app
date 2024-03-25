@@ -1,13 +1,10 @@
 <template>
-  <div class="balance-container2">
-    <div class="balance-amount">
-      {{ balance }}
-      <img src="https://assets.coingecko.com/coins/images/3688/small/mqTDGK7Q.png?1566256777" alt="Hedera Hashgraph"
-        class="currency-icon">
-      <span class="usd-value">({{ usdValue }} USD)</span>
+    <div class="balance-container2">
+      <div class="balance-amount">
+        {{ nfts }} NFTs
+      </div>
     </div>
-  </div>
-</template>
+  </template>
 
 <script>
 import axios from 'axios';
@@ -17,27 +14,17 @@ import { useRoute } from 'vue-router';
 export default {
 
   setup() {
-    const balance = ref(0);
-    const usdValue = ref(0); // Initialize USD value to 0
-    const activeTab = ref('vault');
-    const selectedCurrency = ref('usd');
+    const nfts = ref(0);
+
     const route = useRoute();
-    const accountId = ref(route.params.accountId);
+    const accountId = ref(route.params.accountId)
 
     onMounted(async () => {
       try {
-        // Fetching account balance
         const response = await axios.get(`http://localhost:8081/api/multisignature-accounts/${accountId.value}`);
         if (response.data.status === 'success') {
-          balance.value = response.data.data.accountInfo.balance.value;
+          nfts.value = response.data.data.accountInfo.ownedNfts;
         }
-
-        // Fetching HBAR to USD conversion rate (assuming using CoinGecko API)
-        const conversionResponse = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph&vs_currencies=usd');
-        const conversionRate = conversionResponse.data['hedera-hashgraph'].usd;
-
-        // Computing the USD value
-        usdValue.value = (balance.value * conversionRate).toFixed(2); // Rounded to 2 decimal places
 
       } catch (error) {
         console.error('Error:', error);
@@ -45,16 +32,11 @@ export default {
     });
 
     return {
-      balance,
-      usdValue, // Return the USD value to the template
-      activeTab,
-      selectedCurrency
+      nfts,
     };
   }
 }
 </script>
-
-
 
 <style scoped>
 .balance-amount {

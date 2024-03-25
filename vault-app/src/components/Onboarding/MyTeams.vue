@@ -37,10 +37,13 @@ export default {
         };
 
         const address = computed(() => store.state.selectedAccount);
+        const multisigAccount = computed(() => store.state.multisigAccount);
+    
 
-
-        const navigateToVault = () => {
-            router.push(`/dashboard`);
+        function navigateToVault(msAccountId)  {
+            store.commit('setMultisigAccount', msAccountId);
+            console.log(multisigAccount.value);
+            router.push(`/dashboard/${msAccountId}`);
         };
 
         onMounted(async () => {
@@ -53,9 +56,9 @@ export default {
                 const connectedWalletId = address.value; // Replace with actual connected wallet id
                 console.log("Address:", connectedWalletId);
 
-                const response = await axios.get(`http://localhost:8082/api/multisignature-accounts?memberAccountId=${connectedWalletId}`);
-                accountIds.value = response.data.data; // Assuming the response contains an array of accountIds
-                console.log("RORY: ", accountIds.value)
+                const response = await axios.get(`http://localhost:8081/api/multisignature-accounts?memberAccountId=${connectedWalletId}`);
+                accountIds.value = response.data.data.map(account => account.accountId);
+
             } catch (error) {
                 console.error('Error fetching account IDs:', error);
             }
@@ -102,7 +105,13 @@ h3 {
 }
 
 .account-id:hover {
-    background-color: #007b8a;
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
 }
 
 </style>

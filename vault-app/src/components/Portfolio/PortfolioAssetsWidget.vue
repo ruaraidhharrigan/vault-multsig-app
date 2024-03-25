@@ -12,62 +12,69 @@
         <h3 class="crypto-name">{{ item.name }} ({{ item.symbol }})</h3>
         <p class="crypto-amount">{{ item.amount }}</p>
         <p class="crypto-value">${{ item.value.toLocaleString() }}</p>
-        <p class="crypto-percentage">{{ item.percentage }}%</p>
     </div>
 </template>
 
 <script>
-export default{
+import axios from 'axios';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import {useStore} from 'vuex';
+export default {
     data() {
         return {
-            percentageGain: 5.05,
-            portfolio: [
-                {
-                    "id": "1",
-                    "name": "Bitcoin",
-                    "symbol": "BTC",
-                    "amount": 0.5,
-                    "value": 10000,
-                    "percentage": 50,
-                    "color": "#6EE7B7",
-                    "logo": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
-                },
-                {
-                    "id": "2",
-                    "name": "Ethereum",
-                    "symbol": "ETH",
-                    "amount": 1,
-                    "value": 3000,
-                    "percentage": 30,
-                    "color": "#FF6F91",
-                    "logo": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880"
-                },
-                {
-                    "id": "3",
-                    "name": "Tether",
-                    "symbol": "USDT",
-                    "amount": 1000,
-                    "value": 1000,
-                    "percentage": 10,
-                    "color": "#1E40AF",
-                    "logo": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707"
-                },
-                {
-                    "id": "4",
-                    "name": "Hedera Hashgraph",
-                    "symbol": "HBAR",
-                    "amount": 1000,
-                    "value": 1000,
-                    "percentage": 10,
-                    "color": "#FFBF00",
-                    "logo": "https://assets.coingecko.com/coins/images/3688/large/mqTDGK7Q.png?1566256777"
+            portfolio: [],
+        };
+    },
+    methods: {
+        async fetchPortfolio() {
+            try {
+                const store = useStore();
+                const route = useRoute();
+                const accountId = ref(route.params.accountId);
+
+                // Replace 'your-api-endpoint' with the actual endpoint
+                const response = await axios.get(`http://localhost:8081/api/multisignature-accounts/${accountId.value}/balances`);
+                const data = response.data;
+
+                const conversionResponse = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph&vs_currencies=usd');
+                const conversionRate = conversionResponse.data['hedera-hashgraph'].usd;
+
+
+                // Assuming the API returns an array of tokens with their details
+                this.portfolio = Object.values(data.tokens).map(token => ({
+                    id: token.tokenId, // Or any unique identifier
+                    name: token.name, // You'll need to fetch or define the name elsewhere, as it's not in the given object
+                    symbol: token.symbol, // Same for symbol
+                    amount: token.balance,
+                    value: 0, // Placeholder for the token's value
+                    percentage: 0, // Placeholder for the token's percentage of the portfolio
+                    logo: 'path-to-logo' // Placeholder for the logo path
+                }));
+
+                // Add HBAR balance (assuming 'data.hbars' contains the HBAR balance)
+                if (data.hbars && data.hbars.value) {
+                    this.portfolio.unshift({
+                        id: 'hbar', // Unique identifier for HBAR
+                        name: 'Hedera Hashgraph',
+                        symbol: 'HBAR',
+                        amount: data.hbars.value,
+                        value: (data.hbars.value * conversionRate).toFixed(2), // Placeholder for HBAR's value
+                        percentage: 0, // Placeholder for HBAR's percentage of the portfolio
+                        logo: 'https://assets.coingecko.com/coins/images/3688/small/mqTDGK7Q.png?1566256777' // URL to the HBAR logo
+                    });
                 }
-            ]
+                store.commit('setTotalValue', this.portfolio.reduce((total, token) => total + parseFloat(token.value), 0));
+            } catch (error) {
+                console.error('Error fetching portfolio:', error);
+            }
         }
     },
-}
+    created() {
+        this.fetchPortfolio(); // Fetch portfolio when component is created
+    }
+};
 </script>
-
 <style scoped>
 .header-row,
 .crypto-item {
@@ -87,7 +94,7 @@ export default{
 }
 
 .crypto-item {
-    background-color: #191c29;
+    background-color: whitesmoke;
     border: 1px solid #e0e0d0;
     border-radius: 0 0 10px 10px;
     /* Rounded corners on bottom */
@@ -109,7 +116,7 @@ export default{
     /* Name occupies the second column */
     font-size: 18px;
     margin: 0;
-    color: whitesmoke;
+    color: black;
     font-weight: 600;
 }
 
@@ -125,7 +132,7 @@ export default{
     /* Amount occupies the fourth column */
     margin: 0;
     font-size: 16px;
-    color: whitesmoke;
+    color: black;
 }
 
 .crypto-value {
@@ -133,7 +140,7 @@ export default{
     /* Value occupies the fifth column */
     margin: 0;
     font-size: 16px;
-    color: whitesmoke;
+    color: black;
 }
 
 .crypto-percentage {
@@ -141,7 +148,7 @@ export default{
     /* Percentage occupies the sixth column */
     margin: 0;
     font-size: 16px;
-    color: whitesmoke;
+    color: black;
 }
 
 @media (max-width: 768px) {

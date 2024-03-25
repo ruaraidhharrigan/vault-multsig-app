@@ -1,10 +1,7 @@
 <template>
     <div class="footer">
-      <div class="footer-left">
-        <span>BigTinyBrand inc.</span>
-      </div>
       <div class="footer-right">
-        <span>© 2023 BigTinyBrand Inc.</span>
+        <span>BigTinyBrand, LLC</span>
       </div>
        
     </div>

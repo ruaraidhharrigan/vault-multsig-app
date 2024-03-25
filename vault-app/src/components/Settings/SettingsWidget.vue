@@ -1,6 +1,5 @@
 <template>
     <div class="parent-widget">
-        <div class="card">
             <div class="section team-settings">
                 <h2>Account</h2>
                 <div class="input-group centered-group">
@@ -13,7 +12,7 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <p for="team-name">Team Name:</p>
+                    <p class="teamname" for="team-name">Team Name:</p>
                     <input v-model="teamName" id="team-name" type="text" />
                 </div>
                 <div class="input-group">
@@ -26,14 +25,14 @@
             <div class="section address-management">
                 <h2>Address Management</h2>
                 <div class="input-group centered group">
-                    <p for="new-address">Add Address:</p>
+                    <p class="teamname" for="new-address">Add Address:</p>
                     <input v-model="newAddress" id="new-address" type="text" />
-                    <button @click="addAddress">Add</button>
+                    <button class="style-button" @click="addAddress">Add</button>
                 </div>
 
                 <ul>
                     <li v-for="(address, index) in addresses" :key="index">
-                        {{ address }} <button @click="removeAddress(index)">Remove</button>
+                        {{ address }} <button class="style-button" @click="removeAddress(index)">Remove</button>
                     </li>
                 </ul>
             </div>
@@ -48,7 +47,6 @@
             </div>
             <button class="style-button">Save</button>
         </div>
-    </div>
 </template>
   
 <script>
@@ -88,10 +86,33 @@ export default {
 <style scoped>
 h2 {
     text-align: center;
+    color:black;
 }
 
 .card{
     text-align: left;
+}
+
+.teamname{
+    color:black;
+}
+
+input{
+    background-color: whitesmoke;
+}
+
+.parent-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+  background-color: #f6f8fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-left: 300px;
+  width: 55%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -104,7 +125,7 @@ h2 {
     margin-bottom: 20px;
     overflow: hidden;
     border-radius: 50%;
-    background-color: #282c34;
+    background-color: white;
 
 }
 
@@ -113,6 +134,11 @@ h2 {
     height: auto;
     display: block;
 }
+textarea{
+    background-color: whitesmoke;
+    color: black;
+
+}
 
 .settings-container {
     font-family: monospace;
@@ -120,8 +146,8 @@ h2 {
     margin: auto;
     padding: 20px;
     border-radius: 8px;
-    background-color: #20232a;
-    color: whitesmoke;
+    background-color: white;
+    color: black;
 }
 
 .section {
@@ -131,8 +157,8 @@ h2 {
 
 h2 {
     margin-bottom: 10px;
-    color: whitesmoke;
-    border-bottom: 2px solid #61dafb;
+    color: black;
+    border-bottom: 2px solid black;
     padding-bottom: 5px;
     font-size:20px;
 }
@@ -180,30 +206,11 @@ textarea input[type="range"] {
     margin-bottom: 10px;
     border-radius: 4px;
     border: 1px solid #32363a;
-    background-color: #282c34;
-    color: #61dafb;
+    background-color: whitesmoke;
+    color: black;
 }
 
-button {
-    padding: 8px 15px;
-    border: none;
-    background-color: #61dafb;
-    color: #20232a;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    border-radius: 4px;
-}
 
-button:hover {
-    background-color: #20232a;
-    color: #61dafb;
-    border: 1px solid #61dafb;
-}
 
 ul {
     list-style: none;
@@ -211,7 +218,7 @@ ul {
 }
 
 li {
-    background-color: #32363a;
+    background-color: whitesmoke;
     padding: 10px;
     margin-bottom: 8px;
     border-radius: 4px;

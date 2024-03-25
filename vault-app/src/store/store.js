@@ -3,6 +3,7 @@ import { createStore } from 'vuex';
 export default createStore({
     state() {
         return {
+            selectedMultisigAccount:null,
             createVaultForm: false,
             createVaultAddresses: false,
             reviewVaultForm: false,
@@ -16,10 +17,22 @@ export default createStore({
                 accountIds: [],
             },
             routeToNavigate: null,
+            topic: null,
+            totalValue: 0,
 
         };
     },
     mutations: {
+        setTotalValue(state, value) {
+            state.totalValue = value;
+        },
+        setMultisigAccount(state, account) {
+            state.selectedMultisigAccount = account;
+        }, 
+
+        setTopic(state, topic) {
+            state.topic = topic;
+        },
         setAccount(state, account) {
             state.selectedAccount = account;
             if (account) {
@@ -80,6 +93,15 @@ export default createStore({
         },
         ADD_ADDRESS({ commit }, address) {
             commit('ADD_ADDRESS', address);
+        },
+        setTopic({ commit }, topic) {
+            commit('setTopic', topic);
+        },
+        setMultisigAccount({ commit }, account) {
+            commit('setMultisigAccount', account);
+        },
+        setTotalValue({ commit }, value) {
+            commit('setTotalValue', value);
         }
     },
 });

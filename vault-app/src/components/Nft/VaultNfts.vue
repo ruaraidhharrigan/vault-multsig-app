@@ -76,7 +76,7 @@ h2{
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 60%;
+    width: 65%;
     text-align: center;
     font-size: 24px;
     font-weight: bold;

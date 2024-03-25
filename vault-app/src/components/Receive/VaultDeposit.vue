@@ -2,7 +2,7 @@
     <div class="parent-container">
         <div class="box">
             <SideBar />
-            <h1 class="main-title">Receive Assets</h1>
+            <h1 class="main-title2">Receive Assets</h1>
             <div class="widget-container">
                 <ReceiveWidget/>
             </div>
@@ -21,3 +21,12 @@ export default {
     },
 }
  </script>
+<style scoped>
+.main-title2{
+    font-family: kanit;
+    color: whitesmoke;
+    font-size: 26px;
+    padding: 10px;
+    margin-left: 125px;
+}
+</style>

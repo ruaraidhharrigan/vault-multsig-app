@@ -17,16 +17,8 @@
                     <img src="../../assets/svg/portfolio.svg" />
                     Portfolio
                 </a>
-                <a :class="activeClass('/nfts')" @click="navigateToRoute('/nfts')" class="sidebar-link trending" href="#">
-                    <img src="../../assets/svg/nft.svg" />
-                    NFTs
-                </a>
-                <a :class="activeClass('/swap')" @click="navigateToRoute('/swap')" class="sidebar-link trending" href="#">
-                    <img src="../../assets/svg/swap.svg" />
-                    Swap
-                </a>
                 <a :class="activeClass('/send')" @click="navigateToRoute('/send')" class="sidebar-link" href="#">
-                    <img src="../../assets/svg/send.svg"/>
+                    <img src="../../assets/svg/send.svg" />
                     Send
                 </a>
                 <a :class="activeClass('/receive')" @click="navigateToRoute('/receive')" class="sidebar-link" href="#">
@@ -38,9 +30,20 @@
                     <img src="../../assets/svg/transactions.svg" />
                     Transactions
                 </a>
+            
                 <a :class="activeClass('/settings')" @click="navigateToRoute('/settings')" class="sidebar-link" href="#">
-                    <img src="../../assets/svg/settings.svg"/>
+                    <img src="../../assets/svg/settings.svg" />
                     Settings
+                </a>
+                <a :class="[activeClass('/swap'), { 'is-disabled': isComingSoon('/swap') }]" @click="navigateToRoute('/swap')" class="sidebar-link trending" href="#">
+                    <img src="../../assets/svg/swap.svg" />
+                    Swap
+                    <span v-if="isComingSoon('/swap')" class="coming-soon">Coming Soon</span>
+                </a>
+                <a :class="[activeClass('/nfts'), { 'is-disabled': isComingSoon('/nfts') }]" @click="navigateToRoute('/nfts')" class="sidebar-link trending" href="#">
+                    <img src="../../assets/svg/nft.svg" />
+                    NFTs
+                    <span v-if="isComingSoon('/nfts')" class="coming-soon">Coming Soon</span>
                 </a>
             </div>
         </div>
@@ -48,16 +51,45 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
 export default {
-    methods: {
-        navigateToRoute(route) {
-            this.$router.push(route);
-        },
-        activeClass(route) {
-            return this.$route.path === route ? 'is-active' : '';
-        }
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    const accountId = ref(route.params.accountId);
+
+    // Make sure to access the route params after the component is mounted
+    // to ensure that the route has been resolved
+    onMounted(() => {
+      accountId.value = route.params.accountId;
+    });
+
+    function navigateToRoute(targetRoute) {
+      if (!isComingSoon(targetRoute)) {
+        router.push(targetRoute + "/" + accountId.value);
+      }
     }
-}
+
+    function activeClass(targetRoute) {
+      return route.path === targetRoute ? 'is-active' : '';
+    }
+
+    function isComingSoon(targetRoute) {
+      const comingSoonRoutes = ['/swap', '/nfts']; // Add more as needed
+      return comingSoonRoutes.includes(targetRoute);
+    }
+
+    // Expose to template
+    return {
+      navigateToRoute,
+      activeClass,
+      isComingSoon,
+      accountId,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -116,4 +148,21 @@ img {
     height: 20px;
     margin-right: 10px;
     /* Add some space between SVG and text */
-}</style>
+}
+.is-disabled {
+    color: #5b6468; /* Grey out the text */
+    pointer-events: none; /* Disable click events */
+    cursor: default;
+}
+
+.coming-soon {
+    margin-left: 8px; /* Space between link text and label */
+    font-size: 0.8em; /* Smaller font size for the label */
+    color: #b2bec3; /* Grey color for the label */
+}
+
+/* You may want to style the hover state for disabled links differently */
+.sidebar-link.is-disabled:hover {
+    color: #b2bec3; /* Keep the color grey */
+}
+</style>

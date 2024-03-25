@@ -1,71 +1,105 @@
 <template>
     <div class="parent-container">
-
         <div class="box">
             <SideBar />
-            <h1 class="main-title">Team's Vault Dashboard</h1>
             <div class="main-content">
+                <h1 class="main-title">Dashboard</h1>
                 <div class="dashboard">
-                    <div class="widget-container">
+                    <!-- Balance Widget Container -->
+                    <router-link :to="`/portfolio/${accountId}`" tag="div" class="widget-container">
                         <BalanceWidget />
-                    </div>
+                    </router-link>
+                    <router-link :to="`/receive/${accountId}`" tag="div" class="widget-container">
+                        <CopyAddressWidget />
+                    </router-link>
                     <div class="widget-container">
-                        <TransactionsWidget />
+                        <OwnedNftWidget />
                     </div>
-                    <div class="widget-container full-width">
-                        <BalanceChart />
-                    </div>
+                    <router-link :to="`/settings/${accountId}`" tag="div" class="widget-container">
+                        <MembersWidget />
+                    </router-link>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
   
 <script>
 import BalanceWidget from '../Common/BalanceWidget.vue';
 import SideBar from '../Common/SideBar.vue';
-import TransactionsWidget from '../Common/TransactionsWidget.vue';
 import BalanceChart from './BalanceChart.vue';
+import OwnedNftWidget from '../Common/OwnedNftWidget.vue';
+import CopyAddressWidget from '../Common/CopyAddressWidget.vue';
+import MembersWidget from '../Common/MembersWidget.vue';
+
+
 export default {
-    data() {
-        return {
-            activeTab: 'vault',
-            balance: 1000,  // Example balance
-            selectedCurrency: 'usd',
-        }
-    },
+    props: ['accountId'],
     components: {
         BalanceWidget,
         SideBar,
-        TransactionsWidget,
-        BalanceChart
+        BalanceChart,
+        CopyAddressWidget,
+        OwnedNftWidget,
+        MembersWidget,
+        MembersWidget
+
     },
+    methods: {
+        navigateTo(route) {
+            this.$router.push(route);
+        }
+    }
 }
 </script>
+
+
   
 <style scoped>
-
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-
-    /* Optional: for some spacing around the main content */
+a{
+    text-decoration: none;
 }
-
 .dashboard {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-start;
+    /* Align the tops of the widgets */
     flex-wrap: wrap;
+    gap: 20px;
+    /* This provides space between the widgets */
     padding-left: 220px;
-    align-items: stretch;
+    /* Adjust this value as needed */
     transition: padding-left 0.3s ease-in-out;
 }
 
+.widget-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    /* Make children fill the container */
+}
 
+/* Apply consistent padding and margin to the root elements of the widgets */
+.balance-widget,
+.copy-address-widget {
+    padding: 20px;
+    /* Adjust as needed */
+    margin: 0;
+    /* Remove any default margin */
+    box-sizing: border-box;
+    /* Include padding in the width */
+}
 
-.widget-container.full-width {
-    flex-basis: calc(100% - 10px);
-    margin-top:50px;
+/* If the widgets still don't align, you can adjust them individually */
+.balance-widget {
+    align-self: center;
+    /* Adjust this as needed */
+}
+
+.copy-address-widget {
+    align-self: center;
+    /* Adjust this as needed */
 }
 
 @media (max-width: 768px) {
@@ -73,12 +107,8 @@ export default {
         padding-left: 20px;
     }
 
-    .widget-container,
-    .widget-container.full-width {
+    .widget-container {
         flex-basis: 100%;
-        /* Set width to 100% on small screens */
     }
 }
-
 </style>
-  

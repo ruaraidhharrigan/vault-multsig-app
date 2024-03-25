@@ -19,14 +19,15 @@ const routes = [
   { path: '/create', component: CreateVault },
   { path: '/configuration', component: VaultConfiguration },
   { path: '/review', component: ReviewSummary },
-  { path: '/dashboard', component: VaultDashboard },
-  { path: '/portfolio', component: VaultPortfolio },
-  { path: '/nfts', component: VaultNfts },
-  { path: '/swap', component: VaultSwap },
-  { path: '/send', component: VaultSend },
-  { path: '/receive', component: VaultDeposit },
-  { path: '/transactions', component: VaultTransactions },
-  { path: '/settings', component: VaultSettings }
+  
+  { path: '/dashboard/:accountId', component: VaultDashboard, props: true },
+  { path: '/portfolio/:accountId', component: VaultPortfolio, props: true },
+  { path: '/nfts/:accountId', component: VaultNfts, props: true },
+  { path: '/swap/:accountId', component: VaultSwap, props: true },
+  { path: '/send/:accountId', component: VaultSend, props: true },
+  { path: '/receive/:accountId', component: VaultDeposit, props: true },
+  { path: '/transactions/:accountId', component: VaultTransactions, props: true },
+  { path: '/settings/:accountId', component: VaultSettings, props: true }
 ];
 
 const router = createRouter({
